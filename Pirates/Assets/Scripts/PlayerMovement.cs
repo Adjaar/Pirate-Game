@@ -10,11 +10,11 @@ public class PlayerMovement : MonoBehaviour
 	public int playerNumber;
 	private string Player;
 
-
 	[SerializeField]
-	public float accelerationPower = 1f;
+	public float accelerationPower = 10f;
 	[SerializeField]
 	public float steeringPower = 1f;
+	public float speedModifier;
 	float steeringAmount, speed, direction;
 	
 
@@ -26,26 +26,6 @@ public class PlayerMovement : MonoBehaviour
 		Player = ("Player") + playerNumber;
 	}
 
-	private void Update()
-	{
-		//fires cannonball based on player and side
-		if (Input.GetButtonDown("Starboard1") && playerNumber == 1)
-		{
-			gameObject.GetComponent<Cannon>().Fire(this.gameObject.transform.GetChild(0).position, this.gameObject.transform.GetChild(2).position);
-		}
-	    if (Input.GetButtonDown("Port1") && playerNumber == 1)
-		{
-			gameObject.GetComponent<Cannon>().Fire(this.gameObject.transform.GetChild(1).position, this.gameObject.transform.GetChild(3).position);
-		}
-		if (Input.GetButtonDown("Starboard2") && playerNumber == 2)
-		{
-			gameObject.GetComponent<Cannon>().Fire(this.gameObject.transform.GetChild(0).position, this.gameObject.transform.GetChild(2).position);
-		}
-		if (Input.GetButtonDown("Port2") && playerNumber == 2)
-		{
-			gameObject.GetComponent<Cannon>().Fire(this.gameObject.transform.GetChild(1).position, this.gameObject.transform.GetChild(3).position);
-		}
-	}
 	void FixedUpdate() 
 	{
 
@@ -60,8 +40,6 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddRelativeForce(-Vector2.up * speed);
 
 		rb.AddRelativeForce(-Vector2.right * steeringAmount); // 2); //* rb.velocity.magnitude was originally in the middle of the equation, but I wanted to turn even without moving forward (i.e. when stuck), and this prevented that
-		Debug.Log(speed);
-		Debug.Log(steeringAmount);
 	} 
 
 
@@ -77,15 +55,15 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (windDirection.currentWind == "N") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 		{
-			accelerationPower = 15f;
+			accelerationPower = 15f + speedModifier;
 		}
 		else if (windDirection.currentWind == "S") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 		{
-			accelerationPower = 5f;
+			accelerationPower = 5f + speedModifier;
 		}
 		else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 		{
-			accelerationPower = 10f;
+			accelerationPower = 10f + speedModifier;
 		}
 
 	}
@@ -93,45 +71,45 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (windDirection.currentWind == "S") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 		{
-			accelerationPower = 15f;
+			accelerationPower = 15f + speedModifier;
 		}
 		else if (windDirection.currentWind == "N") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 		{
-			accelerationPower = 5f;
+			accelerationPower = 5f + speedModifier;
 		}
 		else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 		{
-			accelerationPower = 10f;
+			accelerationPower = 10f + speedModifier;
 		}
 	}
 	else if (hit.collider.name == "East" + playerNumber)
 	{
 		if (windDirection.currentWind == "E") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 		{
-			accelerationPower = 15f;
+			accelerationPower = 15f + speedModifier;
 		}
 		else if (windDirection.currentWind == "W") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 		{
-			accelerationPower = 5f;
+			accelerationPower = 5f + speedModifier;
 		}
 		else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 		{
-			accelerationPower = 10f;
+			accelerationPower = 10f + speedModifier;
 		}
 	}
 	else if (hit.collider.name == "West" + playerNumber)
 	{
 		if (windDirection.currentWind == "W") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 		{
-			accelerationPower = 15f;
+			accelerationPower = 15f + speedModifier;
 		}
 		else if (windDirection.currentWind == "E") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 		{
-			accelerationPower = 5f;
+			accelerationPower = 5f + speedModifier;
 		}
 		else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 		{
-			accelerationPower = 10f;
+			accelerationPower = 10f + speedModifier;
 		}
 
 		}

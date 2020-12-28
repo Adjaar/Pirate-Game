@@ -3,18 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/* CREW BENEFITS
+ * 0/10 Sail around and fire 1 cannon ball with slow reload
+ * 1/10 Normal reload
+ * 2/10 Speed increase
+ * 3/10 Increased vision (if applicable)
+ * 4/10 Two cannonballs
+ * 5/10 More health from pickups
+ * 6/10 Can board ships
+ * 7/10 Speed increase
+ * 8/10 Three cannonballs
+ * 9/10 Higher defence
+ * 10/10 Ship slowly repairs
+ */
+
 public class CrewManager : MonoBehaviour
 {
     public static int crewNumber;
     public static int crewNumberP1;
     public static int crewNumberP2;
+    public int gunNumber = 1;
     public Sprite zero, one, two, three, four, five, six, seven, eight, nine, ten;
     public Image thisSprite;
+
+    public Cannon coolDown;
+    public PlayerMovement speed;
     
     void Update()
     {
         CrewAdd();
-       
+        CrewBenefits();
     }
 
 
@@ -64,6 +83,54 @@ public class CrewManager : MonoBehaviour
                 break;
             case 10:
                 thisSprite.sprite = ten;
+                break;
+            default:
+                break;
+        }
+    }
+
+    void CrewBenefits()
+    {
+        switch (crewNumber)
+        {
+
+            case 0:
+                coolDown.cooldown = 3; //no crew resets the cooldown to a default number
+                gunNumber = 1;
+                break;
+            case 1:
+                coolDown.cooldown = 2; //slightly faster reload on guns      
+                gunNumber = 1;
+                break;
+            case 2:
+                speed.speedModifier = 5f; //a speed boost that ignores wind
+                gunNumber = 1;
+                break;
+            case 3:
+                //currently nothing
+                gunNumber = 1;
+                break;
+            case 4:
+                gunNumber = 2; //allows second cannon shot out of one action
+                
+                break;
+            case 5:
+                gunNumber = 2;
+                break;
+            case 6:
+                gunNumber = 2;
+                break;
+            case 7:
+                gunNumber = 3;
+                break;
+            case 8:
+                
+                break;
+            case 9:
+                
+                break;
+            case 10:
+                
                 break;
             default:
                 break;

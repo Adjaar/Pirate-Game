@@ -16,15 +16,6 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(20);
-            Debug.Log(currentHealth);
-        }
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
