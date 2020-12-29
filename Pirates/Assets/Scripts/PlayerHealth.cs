@@ -6,14 +6,18 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
+    public int cannonDamage = 20;
+
+    public bool fullCrew;
+    
 
     public HealthBar healthBar;
 
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        StartCoroutine(ShipRepair());
     }
 
 
@@ -21,13 +25,32 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.tag == "Cannonball")
         {
-            TakeDamage(20);
+            TakeDamage(cannonDamage);
+           
         }
     }
     void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        
 
-        healthBar.SetHealth(currentHealth);
+    healthBar.SetHealth(currentHealth);
+    }
+
+    IEnumerator ShipRepair() //ship slowly repairs with full crew
+    {
+        while (true)
+        {
+            if (fullCrew == true && currentHealth < maxHealth)
+            {
+                currentHealth += 2;
+
+                healthBar.SetHealth(currentHealth);
+        
+
+            }
+            yield return new WaitForSeconds(5f);
+        }
+
     }
 }
