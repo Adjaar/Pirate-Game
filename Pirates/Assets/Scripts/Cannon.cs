@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
+    public InputMaster controls;
 
     [SerializeField] private GameObject cannonBall;
     Rigidbody2D rb, rb2, rb3;
@@ -11,13 +12,21 @@ public class Cannon : MonoBehaviour
     private PlayerMovement playerNum; //checks player number for removing ammo from a particular player
     public CrewManager gunCount; //checks for how many cannons are fired in Fire method (Default 1)
 
+    private float shootInput; 
+
     public bool reload = false; //checking for need to reload cannons
     public float cooldown; //changes based on crew members
     public float timer; //counts down from cooldown
 
+    private void Awake()
+    {
+        controls = new InputMaster();
+    }
     private void Start()
     {
         playerNum = this.gameObject.GetComponent<PlayerMovement>();
+        controls.Player.Cannons.performed += ctx => ShootDirection();
+        controls.Player2.Cannons.performed += ctx => ShootDirection();
     }
     private void Update()
     {
@@ -25,14 +34,28 @@ public class Cannon : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
-           
+
         if (timer < 0)
         {
             timer = 0;
             ReloadGuns();
         }
-
-        if (Input.GetButtonDown("Starboard1") && playerNum.playerNumber == 1 && AmmoManager.ammoNumberP1 > 0)
+    }
+        private void ShootDirection()
+        {
+            //reading player input
+            switch (playerNum.playerNumber)
+            {
+                case 1:
+                    shootInput = controls.Player.Cannons.ReadValue<float>();
+                    break;
+                case 2:
+                    shootInput = controls.Player2.Cannons.ReadValue<float>();
+                    break;
+                default:
+                    break;
+            }
+        if (shootInput > 0 && AmmoManager.ammoNumberP1 > 0)
         {
             switch (gunCount.gunNumber)
             {
@@ -50,7 +73,7 @@ public class Cannon : MonoBehaviour
             }
 
         }
-        if (Input.GetButtonDown("Port1") && playerNum.playerNumber == 1 && AmmoManager.ammoNumberP1 > 0)
+        if (shootInput < 0 && AmmoManager.ammoNumberP1 > 0)
         {
             switch (gunCount.gunNumber)
             {
@@ -68,7 +91,7 @@ public class Cannon : MonoBehaviour
             }
 
         }
-        if (Input.GetButtonDown("Starboard2") && playerNum.playerNumber == 2 && AmmoManager.ammoNumberP2 > 0)
+        if (shootInput > 0 && AmmoManager.ammoNumberP2 > 0)
         {
             switch (gunCount.gunNumber)
             {
@@ -86,7 +109,7 @@ public class Cannon : MonoBehaviour
             }
 
         }
-        if (Input.GetButtonDown("Port2") && playerNum.playerNumber == 2 && AmmoManager.ammoNumberP2 > 0)
+        if (shootInput < 0 && AmmoManager.ammoNumberP2 > 0)
         {
             switch (gunCount.gunNumber)
             {
@@ -105,7 +128,7 @@ public class Cannon : MonoBehaviour
 
         }
     }
-
+     
     public void Fire(Vector3 broadside, Vector3 endPoint)
     {
         if (reload == false)
@@ -199,11 +222,19 @@ public class Cannon : MonoBehaviour
             }
         }
     }
-
     public void ReloadGuns()
     {
             reload = false;
             timer = cooldown;
        
+    }
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 }
