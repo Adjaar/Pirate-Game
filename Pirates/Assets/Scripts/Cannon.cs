@@ -43,12 +43,13 @@ public class Cannon : MonoBehaviour
     }
         private void ShootDirection()
         {
+        
             //reading player input
             switch (playerNum.playerNumber)
             {
                 case 1:
                     shootInput = controls.Player.Cannons.ReadValue<float>();
-                    break;
+                break;
                 case 2:
                     shootInput = controls.Player2.Cannons.ReadValue<float>();
                     break;
@@ -57,6 +58,7 @@ public class Cannon : MonoBehaviour
             }
         if (shootInput > 0 && AmmoManager.ammoNumberP1 > 0)
         {
+            Debug.Log(AmmoManager.ammoNumberP1);
             switch (gunCount.gunNumber)
             {
                 case 1:
@@ -145,10 +147,10 @@ public class Cannon : MonoBehaviour
              switch (playerNum.playerNumber)
              {
                  case 1:
-                     AmmoManager.ammoNumberP1 -= 1;
+                     AmmoManager.ammoNumberP1 --;
                      break;
                  case 2:
-                     AmmoManager.ammoNumberP2 -= 1;
+                     AmmoManager.ammoNumberP2 --;
                      break;
                  default:
                      break;

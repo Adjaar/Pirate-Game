@@ -11,6 +11,7 @@ public class AmmoManager : MonoBehaviour
     public Sprite zero, one, two, three, four, five, six, seven, eight, nine, ten;
     public Image thisSprite;
 
+
     void Update()
     {
         AmmoAdd();

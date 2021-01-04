@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 	Rigidbody2D rb;
 	private Wind windDirection;
 	public int playerNumber;
-	private string Player;
 
 	public InputMaster controls;
 	public Vector2 moveInput;
@@ -31,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		windDirection = compass.GetComponent<Wind>();
-		Player = ("Player") + playerNumber;
+		controls.Player.Escape.performed += ctx => Quit();
 		
 	}
 
@@ -83,6 +82,11 @@ public class PlayerMovement : MonoBehaviour
 	private void OnDisable()
 	{
 		controls.Disable();
+	}
+
+	private void Quit()
+	{
+		Application.Quit();
 	}
 
 	void WindCheck()

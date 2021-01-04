@@ -30,7 +30,13 @@ public class CrewManager : MonoBehaviour
     public Cannon coolDown;
     public PlayerMovement speed; //accesses speed modifier variable from PlayerMovement
     public PlayerHealth modifyHealthScript; //used to access and modify variables from PlayerHealth script
-    
+
+    private void Start()
+    {
+        crewNumberP1 = 3;
+        crewNumberP2 = 3;
+    }
+
     void Update()
     {
         CrewAdd();
@@ -97,12 +103,14 @@ public class CrewManager : MonoBehaviour
 
             case 0:
                 coolDown.cooldown = 2; //no crew resets the cooldown to a default number
+                speed.speedModifier = 0f;
                 gunNumber = 1;
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
                 break;
             case 1:
-                coolDown.cooldown = 1; //slightly faster reload on guns      
+                coolDown.cooldown = 1; //slightly faster reload on guns   
+                speed.speedModifier = 0f;
                 gunNumber = 1;
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
@@ -115,21 +123,26 @@ public class CrewManager : MonoBehaviour
                 break;
             case 3:
                 //currently nothing
+                coolDown.cooldown = 1;
+                speed.speedModifier = 5f;
                 gunNumber = 1;
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
                 break;
             case 4:
+                speed.speedModifier = 5f;
                 gunNumber = 2; //allows second cannon shot out of one action
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
                 break;
             case 5:
+                speed.speedModifier = 5f;
                 gunNumber = 2;
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
                 break;
             case 6:
+                speed.speedModifier = 5f;
                 gunNumber = 2;
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;

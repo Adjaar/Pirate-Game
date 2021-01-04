@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "6cb5c2a8-ede2-4bf1-9235-fa2bdc2d5725",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -110,6 +118,17 @@
                     "action": "Cannons",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "12c591b0-6cd0-4f7d-8ccc-6180e85c3563",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -136,7 +155,7 @@
             ],
             "bindings": [
                 {
-                    "name": "Left Stick",
+                    "name": "Xbox",
                     "id": "a8cdbc5a-752e-4b9b-b8a1-88da27b3c89a",
                     "path": "2DVector",
                     "interactions": "",
@@ -191,6 +210,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Other controller bindings",
+                    "id": "14b04938-3e87-4c47-a803-b56572465347",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "3f0dd979-2678-4747-87d2-3f4fb5b431c7",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "409d71d7-0920-47f3-ab92-e09dd7d1a448",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "55d54352-8796-4aed-94fe-0bfd36a07142",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0a565292-ec7f-4b9f-97f1-2c813674667a",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "Port and Starboard",
                     "id": "983d72ed-0253-4fa4-b4ce-8900571a98b1",
                     "path": "1DAxis",
@@ -216,6 +290,39 @@
                     "name": "positive",
                     "id": "c2baa74b-62a7-4ac9-a63d-ad26fe0912ac",
                     "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cannons",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Port and Starboard other controller",
+                    "id": "c7dff12a-112b-44af-8854-2ed76437139d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cannons",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "ccd37abb-6706-41da-87ea-8b77ea150660",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cannons",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "4702aa01-7a2f-4133-b6d1-5f76675f03c3",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
