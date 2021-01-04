@@ -28,10 +28,11 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 1cc0508b514642f4a983052f12300762, type: 3}
-    totalSpriteSurfaceArea: 0
+    totalSpriteSurfaceArea: 393216
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -230,5 +231,6 @@ SpriteAtlas:
   - tiles_sheet_40
   - tiles_sheet_43
   - tiles_sheet_42
+  m_RenderDataMap: {}
   m_Tag: WaterPadding
   m_IsVariant: 0

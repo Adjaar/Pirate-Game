@@ -38,6 +38,7 @@ public class PlayerHealth : MonoBehaviour
     void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        CrewLoss();
 
     healthBar.SetHealth(currentHealth);
 
@@ -78,5 +79,19 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(5f);
         }
 
+    }
+
+    void CrewLoss()
+    {
+        int probability;
+        probability = Random.Range(1, 11);
+        if (p_Name == "Player1" && probability == 1)
+        {
+            CrewManager.crewNumberP1 -= 1;
+        }
+        if (p_Name == "Player2" && probability == 1)
+        {
+            CrewManager.crewNumberP2 -= 1;
+        }
     }
 }
