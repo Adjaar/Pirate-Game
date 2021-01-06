@@ -52,7 +52,6 @@ or dropped by an enemy player. You can lose crew members when taking enemy fire 
 In V1 there is no way to lose crewmembers, but will be in future versions
 
 Future Mechanics
-*Crew loss
 *Ramming
 *UI change controls (P1 can be xbox, P2, keyboard, or both xbox)
 *Audio
@@ -61,5 +60,6 @@ Future Mechanics
 Bonus Mechanics
 *3 & 4 Player
 *Cleaner UI
+*NPC ships
 
 
