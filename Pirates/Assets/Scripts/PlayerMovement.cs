@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+//This script handles more than just movement. I wish it was not named Player Movement but I'm too afraid to change it because of everything that references it
 public class PlayerMovement : MonoBehaviour
 {
 	public GameObject compass; //Wind game object to be accessed by windDirection variable
@@ -20,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 	public float speedModifier;
 	float steeringAmount, speed, direction;
 
+	public static string interaction;
+
 
 	private void Awake()
 	{
@@ -31,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		windDirection = compass.GetComponent<Wind>();
 		controls.Player.Escape.performed += ctx => Quit();
+		controls.Player.Interact.performed += ctx => Interact(interaction);
+		controls.Player2.Interact.performed += ctx => Interact(interaction);
 		
 	}
 
@@ -72,6 +78,23 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddRelativeForce(-Vector2.up * speed);
 
 		rb.AddRelativeForce(-Vector2.right * steeringAmount); // 2); //* rb.velocity.magnitude was originally in the middle of the equation, but I wanted to turn even without moving forward (i.e. when stuck), and this prevented that
+	}
+
+	void Interact(string interactingWith)
+	{
+			switch (interactingWith)
+			{
+				case "PortPlayer1":
+					AmmoManager.ammoNumberP1 = 10;
+					break;
+				case "PortPlayer2":
+					AmmoManager.ammoNumberP2 = 10;
+					break;
+				default:
+					break;
+			}
+		Port.pressed = true;
+		
 	}
 
 	private void OnEnable()

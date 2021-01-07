@@ -16,6 +16,8 @@ public class PlayerHealth : MonoBehaviour
     public Respawn spawner;
     public HealthBar healthBar;
 
+    public Animator health;
+
     private string p_Name;
 
     void Start()
@@ -46,6 +48,8 @@ public class PlayerHealth : MonoBehaviour
         {
             Death();
         }
+
+        health.SetTrigger("Damaged");
     }
 
     void Death()

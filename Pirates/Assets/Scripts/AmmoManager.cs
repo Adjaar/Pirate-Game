@@ -15,7 +15,7 @@ public class AmmoManager : MonoBehaviour
     void Update()
     {
         AmmoAdd();
-         
+
     }
 
 
@@ -69,6 +69,7 @@ public class AmmoManager : MonoBehaviour
             default:
                 break;
         }
+        ammoNumber = 0;
     }
 
 }

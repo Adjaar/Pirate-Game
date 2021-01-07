@@ -9,6 +9,7 @@ public class Cannon : MonoBehaviour
     [SerializeField] private GameObject cannonBall;
     Rigidbody2D rb, rb2, rb3;
 
+    private int ammo;
     private PlayerMovement playerNum; //checks player number for removing ammo from a particular player
     public CrewManager gunCount; //checks for how many cannons are fired in Fire method (Default 1)
 
@@ -27,6 +28,8 @@ public class Cannon : MonoBehaviour
         playerNum = this.gameObject.GetComponent<PlayerMovement>();
         controls.Player.Cannons.performed += ctx => ShootDirection();
         controls.Player2.Cannons.performed += ctx => ShootDirection();
+
+
     }
     private void Update()
     {
@@ -43,9 +46,21 @@ public class Cannon : MonoBehaviour
     }
         private void ShootDirection()
         {
-        
-            //reading player input
-            switch (playerNum.playerNumber)
+
+        //Check how much ammo player once fired so that it doesn't clog the update
+        switch (playerNum.playerNumber)
+        {
+            case 1:
+                ammo = AmmoManager.ammoNumberP1;
+                break;
+            case 2:
+                ammo = AmmoManager.ammoNumberP2;
+                break;
+            default:
+                break;
+        }
+        //reading player input
+        switch (playerNum.playerNumber)
             {
                 case 1:
                     shootInput = controls.Player.Cannons.ReadValue<float>();
@@ -56,9 +71,11 @@ public class Cannon : MonoBehaviour
                 default:
                     break;
             }
-        if (shootInput > 0 && AmmoManager.ammoNumberP1 > 0)
+
+        //Determining the player, the side fired off of and if there is ammo
+        if (shootInput > 0 && ammo > 0 && playerNum.playerNumber == 1)
         {
-            Debug.Log(AmmoManager.ammoNumberP1);
+          
             switch (gunCount.gunNumber)
             {
                 case 1:
@@ -75,7 +92,7 @@ public class Cannon : MonoBehaviour
             }
 
         }
-        if (shootInput < 0 && AmmoManager.ammoNumberP1 > 0)
+        if (shootInput < 0 && ammo > 0 && playerNum.playerNumber == 1)
         {
             switch (gunCount.gunNumber)
             {
@@ -93,8 +110,9 @@ public class Cannon : MonoBehaviour
             }
 
         }
-        if (shootInput > 0 && AmmoManager.ammoNumberP2 > 0)
+        if (shootInput > 0 && ammo > 0 && playerNum.playerNumber == 2)
         {
+
             switch (gunCount.gunNumber)
             {
                 case 1:
@@ -111,7 +129,7 @@ public class Cannon : MonoBehaviour
             }
 
         }
-        if (shootInput < 0 && AmmoManager.ammoNumberP2 > 0)
+        if (shootInput < 0 && ammo > 0 && playerNum.playerNumber == 2)
         {
             switch (gunCount.gunNumber)
             {
@@ -131,6 +149,7 @@ public class Cannon : MonoBehaviour
         }
     }
      
+    //the actual creation of a cannonball and the direction it goes off in
     public void Fire(Vector3 broadside, Vector3 endPoint)
     {
         if (reload == false)
@@ -157,6 +176,7 @@ public class Cannon : MonoBehaviour
              }
         }    
     }
+    //two cannons
     public void Fire2 (Vector3 broadside, Vector3 endPoint, Vector3 broadside2, Vector3 endPoint2)
     {
         if (reload == false)
@@ -188,6 +208,7 @@ public class Cannon : MonoBehaviour
         }
     }
 
+    //three cannons
     public void Fire3(Vector3 broadside, Vector3 endPoint, Vector3 broadside2, Vector3 endPoint2, Vector3 broadside3, Vector3 endPoint3)
     {
         if (reload == false)

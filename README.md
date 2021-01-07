@@ -56,6 +56,9 @@ Future Mechanics
 *UI change controls (P1 can be xbox, P2, keyboard, or both xbox)
 *Audio
 *Ammo types (Grapeshot and chain shot)
+*finished crew benefits
+*unlimited supply of crew members
+*Money
 
 Bonus Mechanics
 *3 & 4 Player

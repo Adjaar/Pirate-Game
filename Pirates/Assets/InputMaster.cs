@@ -41,6 +41,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec433739-8c02-4d76-85c3-524c1640601c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -142,6 +150,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""743ead71-4545-4945-8891-2653fb35897b"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -161,6 +180,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": ""Cannons"",
                     ""type"": ""Button"",
                     ""id"": ""cab5c8af-bc77-44d6-8902-1b4917b94331"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""9fbdbfb4-c354-4ad4-bdbb-3f8f19021bfd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -342,6 +369,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Cannons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31a7079a-a97f-45c4-8115-98688fb7f6a4"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ffe1405d-5932-4225-96e8-3cbc1c85eb51"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -376,10 +425,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Cannons = m_Player.FindAction("Cannons", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Movement = m_Player2.FindAction("Movement", throwIfNotFound: true);
         m_Player2_Cannons = m_Player2.FindAction("Cannons", throwIfNotFound: true);
+        m_Player2_Interact = m_Player2.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -432,6 +483,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Cannons;
     private readonly InputAction m_Player_Escape;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -439,6 +491,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Cannons => m_Wrapper.m_Player_Cannons;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -457,6 +510,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -470,6 +526,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -480,12 +539,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private IPlayer2Actions m_Player2ActionsCallbackInterface;
     private readonly InputAction m_Player2_Movement;
     private readonly InputAction m_Player2_Cannons;
+    private readonly InputAction m_Player2_Interact;
     public struct Player2Actions
     {
         private @InputMaster m_Wrapper;
         public Player2Actions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player2_Movement;
         public InputAction @Cannons => m_Wrapper.m_Player2_Cannons;
+        public InputAction @Interact => m_Wrapper.m_Player2_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -501,6 +562,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Cannons.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCannons;
                 @Cannons.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCannons;
                 @Cannons.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnCannons;
+                @Interact.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
@@ -511,6 +575,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Cannons.started += instance.OnCannons;
                 @Cannons.performed += instance.OnCannons;
                 @Cannons.canceled += instance.OnCannons;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -538,10 +605,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnCannons(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCannons(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
