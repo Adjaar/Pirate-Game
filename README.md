@@ -49,7 +49,6 @@ or dropped by an enemy player. You can lose crew members when taking enemy fire 
  * 9/10 Higher defence
  * 10/10 Ship slowly repairs
  */
-In V1 there is no way to lose crewmembers, but will be in future versions
 
 Future Mechanics
 *Ramming

@@ -22,9 +22,9 @@ public class PlayerMovement : MonoBehaviour
 	public float speedModifier;
 	float steeringAmount, speed, direction;
 
-	public static string interaction;
+	public static string interaction, secondInteraction; //second interaction checks if player 2 interacts with something without overwriting player1's interaction
 
-
+	public float damageModifier = 1;
 	private void Awake()
 	{
 		controls = new InputMaster();
@@ -35,20 +35,21 @@ public class PlayerMovement : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 		windDirection = compass.GetComponent<Wind>();
 		controls.Player.Escape.performed += ctx => Quit();
-		controls.Player.Interact.performed += ctx => Interact(interaction);
-		controls.Player2.Interact.performed += ctx => Interact(interaction);
+		controls.Player.Interact.performed += ctx => Interact(interaction, secondInteraction);
+		controls.Player2.Interact.performed += ctx => Interact(interaction, secondInteraction);
 		
 	}
 
 	private void Update()
 	{
-		Move();		
+		Move();
 	}
 	void FixedUpdate() 
 	{
-
+		
 		WindCheck();
 		ApplyMovement();
+		Ram();
 
 	}
 
@@ -80,21 +81,63 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddRelativeForce(-Vector2.right * steeringAmount); // 2); //* rb.velocity.magnitude was originally in the middle of the equation, but I wanted to turn even without moving forward (i.e. when stuck), and this prevented that
 	}
 
-	void Interact(string interactingWith)
+	void Interact(string interactingWith, string interactingWith2)
 	{
 			switch (interactingWith)
 			{
 				case "PortPlayer1":
 					AmmoManager.ammoNumberP1 = 10;
-					break;
+				Port.pressed1 = true;
+				break;
 				case "PortPlayer2":
 					AmmoManager.ammoNumberP2 = 10;
-					break;
+				Port.pressed2 = true;
+				break;
 				default:
 					break;
 			}
-		Port.pressed = true;
+
+		switch (interactingWith2)
+		{
+			case "PortPlayer1":
+				AmmoManager.ammoNumberP1 = 10;
+				Port.pressed1 = true;
+				break;
+			case "PortPlayer2":
+				AmmoManager.ammoNumberP2 = 10;
+				Port.pressed2 = true;
+				break;
+			default:
+				break;
+		}
+
 		
+		
+	}
+
+	//player deals damage ramming other ships based on time moving in a straight line
+	void Ram()
+	{
+		float maxDamage = 10 + accelerationPower;
+		float minDamage = 0;
+
+		damageModifier += (accelerationPower/2 * Time.deltaTime);
+		if (moveInput.y == 0)
+		{
+			damageModifier = 0;
+		}
+		if (moveInput.x != 0)
+		{
+			damageModifier -= .25f;
+		}
+		if (damageModifier >= maxDamage)
+		{
+			damageModifier = maxDamage;
+		}
+		if (damageModifier <= 0)
+		{
+			damageModifier = minDamage;
+		}
 	}
 
 	private void OnEnable()

@@ -9,6 +9,8 @@ TagManager:
   - Player2
   - Cannonball
   - Ammunition
+  - Bow
+  - Vulnerable
   layers:
   - Default
   - TransparentFX

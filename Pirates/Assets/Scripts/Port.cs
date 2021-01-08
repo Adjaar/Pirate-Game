@@ -5,29 +5,49 @@ using UnityEngine;
 public class Port : MonoBehaviour
 {
 
-    public GameObject p1, p2;
-    public static bool pressed; //checks if player interacted while still in trigger
+    public Animator p1, p2;
+    public static bool pressed1, pressed2; //checks if player interacted while still in trigger
+
+   string instance1, instance2 = null;  //seperating the events between both players so that they can't change each others ammo grabs
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerMovement.interaction = ("Port" + collision.name);
+        if (instance1 == null)
+        {
+            instance1 = (("Port") + collision.name);
+        }
+        else if (instance1 != null)
+        {
+            instance2 = (("Port") + collision.name);
+        }
+        PlayerMovement.interaction = (instance1);
+        PlayerMovement.secondInteraction = (instance2);
 
         switch (collision.name)
         {
             case "Player1":
-                p1.SetActive(true);
+                p1.SetBool("inRange", true);
                 break;
             case "Player2":
-                p2.SetActive(true);
+                p2.SetBool("inRange", true);
                 break;
             default:
                 break;
         }
 
-        if (pressed == true)
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (pressed1 == true)
         {
-            p1.SetActive(false);
-            p2.SetActive(false);
+            p1.SetTrigger("pressed");
+            pressed1 = false;
+        }
+        if (pressed2 == true)
+        {
+            p2.SetTrigger("pressed");
+            pressed2 = false;
         }
 
     }
@@ -37,15 +57,17 @@ public class Port : MonoBehaviour
         switch (collision.name)
         {
             case "Player1":
-                p1.SetActive(false);
+                p1.SetBool("inRange", false);
                 break;
             case "Player2":
-                p2.SetActive(false);
+                p2.SetBool("inRange", false);
                 break;
             default:
                 break;
         }
-        pressed = false;
+        
+        instance1 = null;
+        instance2 = null;
     }
 
 }

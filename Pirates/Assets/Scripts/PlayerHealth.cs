@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public float maxHealth = 100;
+    public float currentHealth;
     public int lives = 3;
-    public int cannonDamage = 20;
+    public float cannonDamage = 20;
 
     public bool fullCrew;
 
@@ -37,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
            
         }
     }
-    void TakeDamage(int damage)
+   public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         CrewLoss();
