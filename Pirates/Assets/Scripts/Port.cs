@@ -9,21 +9,20 @@ public class Port : MonoBehaviour
     public static bool pressed1, pressed2; //checks if player interacted while still in trigger
 
    string instance1, instance2 = null;  //seperating the events between both players so that they can't change each others ammo grabs
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (instance1 == null)
         {
-            instance1 = (("Port") + collision.name);
+            instance1 = (("Port") + collision.tag);
         }
         else if (instance1 != null)
         {
-            instance2 = (("Port") + collision.name);
+            instance2 = (("Port") + collision.tag);
         }
         PlayerMovement.interaction = (instance1);
         PlayerMovement.secondInteraction = (instance2);
 
-        switch (collision.name)
+        switch (collision.tag)
         {
             case "Player1":
                 p1.SetBool("inRange", true);
@@ -54,7 +53,7 @@ public class Port : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        switch (collision.name)
+        switch (collision.tag)
         {
             case "Player1":
                 p1.SetBool("inRange", false);
@@ -66,8 +65,10 @@ public class Port : MonoBehaviour
                 break;
         }
         
-        instance1 = null;
-        instance2 = null;
+        instance1 = (null);
+        instance2 = (null);
+        PlayerMovement.interaction = (instance1);
+        PlayerMovement.secondInteraction = (instance2);
     }
 
 }

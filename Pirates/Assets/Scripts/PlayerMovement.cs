@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
 	private Wind windDirection;
 	public int playerNumber;
 
+	Animator tracers; //checks if player is flying with the wind
 	public InputMaster controls;
 	public Vector2 moveInput;
 
 	[SerializeField]
 	public float accelerationPower = 10f;
+
 	[SerializeField]
 	public float steeringPower = 1f;
 	public float speedModifier;
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
+		tracers = this.gameObject.GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		windDirection = compass.GetComponent<Wind>();
 		controls.Player.Escape.performed += ctx => Quit();
@@ -79,6 +82,16 @@ public class PlayerMovement : MonoBehaviour
 		rb.AddRelativeForce(-Vector2.up * speed);
 
 		rb.AddRelativeForce(-Vector2.right * steeringAmount); // 2); //* rb.velocity.magnitude was originally in the middle of the equation, but I wanted to turn even without moving forward (i.e. when stuck), and this prevented that
+
+		if (accelerationPower >= 20f && moveInput.y > 0)
+		{
+			tracers.SetBool("isMoving", true);
+		}
+		else
+		{
+			tracers.SetBool("isMoving", false);
+		}
+
 	}
 
 	void Interact(string interactingWith, string interactingWith2)
@@ -155,10 +168,18 @@ public class PlayerMovement : MonoBehaviour
 		Application.Quit();
 	}
 
+	//stop playing moving animation while stuck
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		tracers.SetBool("Stuck", true);
+	}
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		tracers.SetBool("Stuck", false);
+	}
 	void WindCheck()
 	{
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up);
-
 		//WIND SPEED CHANGE 
 		if (hit.collider.name == "North" + playerNumber)
 		{
@@ -222,5 +243,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 
 		}
+
+
 	}
 }

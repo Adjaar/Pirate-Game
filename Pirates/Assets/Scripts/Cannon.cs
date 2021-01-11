@@ -156,9 +156,10 @@ public class Cannon : MonoBehaviour
         {
             rb = cannonBall.GetComponent<Rigidbody2D>(); //you need to get this on each fire, and not start because you need the rigidbody for each new prefab instantiated 
             rb = Instantiate(rb, broadside, Quaternion.identity);
+            Debug.DrawLine(broadside, endPoint, Color.white, 3f);
 
             Vector3 shootDir = (broadside - endPoint).normalized;
-            rb.GetComponent<CannonBall>().Setup(shootDir);
+            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f);
 
 
             reload = true;
@@ -182,14 +183,14 @@ public class Cannon : MonoBehaviour
         if (reload == false)
         {
             rb = cannonBall.GetComponent<Rigidbody2D>(); //you need to get this on each fire, and not start because you need the rigidbody for each new prefab instantiated 
-            rb = Instantiate(rb, broadside, Quaternion.identity);
+            rb = Instantiate(rb, broadside, Quaternion.identity); 
             rb2 = cannonBall.GetComponent<Rigidbody2D>(); 
             rb2 = Instantiate(rb2, broadside2, Quaternion.identity);
 
             Vector3 shootDir = (broadside - endPoint).normalized;
             Vector3 shootDir2 = (broadside2 - endPoint2).normalized;
-            rb.GetComponent<CannonBall>().Setup(shootDir);
-            rb2.GetComponent<CannonBall>().Setup(shootDir2);
+            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f);
+            rb2.GetComponent<CannonBall>().Setup(shootDir2, 0.75f);
 
             reload = true;
 
@@ -225,9 +226,10 @@ public class Cannon : MonoBehaviour
             Vector3 shootDir2 = (broadside2 - endPoint2).normalized;
             Vector3 shootDir3 = (broadside3 - endPoint3).normalized;
 
-            rb.GetComponent<CannonBall>().Setup(shootDir);
-            rb2.GetComponent<CannonBall>().Setup(shootDir2);
-            rb3.GetComponent<CannonBall>().Setup(shootDir3);
+            
+            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f);
+            rb2.GetComponent<CannonBall>().Setup(shootDir2, 0.75f);
+            rb3.GetComponent<CannonBall>().Setup(shootDir3, 0.75f);
 
             reload = true;
 

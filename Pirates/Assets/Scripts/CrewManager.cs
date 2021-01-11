@@ -13,7 +13,7 @@ using UnityEngine.UI;
  * 5/10 More health from pickups
  * 6/10 Can board ships
  * 7/10 Speed increase
- * 8/10 Three cannonballs
+ * 8/10 Three cannonballs 
  * 9/10 Higher defence
  * 10/10 Ship slowly repairs
  */
