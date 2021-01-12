@@ -21,12 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
 	[SerializeField]
 	public float steeringPower = 1f;
-	public float speedModifier;
+	public float speedModifier, speedPenalty;
 	float steeringAmount, speed, direction;
 
 	public static string interaction, secondInteraction; //second interaction checks if player 2 interacts with something without overwriting player1's interaction
 
 	public float damageModifier = 1;
+
 	private void Awake()
 	{
 		controls = new InputMaster();
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 		WindCheck();
 		ApplyMovement();
 		Ram();
+		SlowSpeed();
 
 	}
 
@@ -74,15 +76,21 @@ public class PlayerMovement : MonoBehaviour
 	void ApplyMovement()
 	{
 		steeringAmount = moveInput.x;
-		speed = moveInput.y * accelerationPower;
+		speed = moveInput.y * accelerationPower - speedPenalty;
 		direction = Mathf.Sign(Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.up))); //all the math is stolen, I couldn't steer it properly myself
 		rb.rotation += steeringAmount * steeringPower * rb.velocity.magnitude * direction;
 
+		//if chainshot wrecks someone's speed 
+		if (speed < 0)
+		{
+			speed = 0;
+		}
 
 		rb.AddRelativeForce(-Vector2.up * speed);
 
 		rb.AddRelativeForce(-Vector2.right * steeringAmount); // 2); //* rb.velocity.magnitude was originally in the middle of the equation, but I wanted to turn even without moving forward (i.e. when stuck), and this prevented that
 
+		//when going in the wind you get tracers showing speed boost
 		if (accelerationPower >= 20f && moveInput.y > 0)
 		{
 			tracers.SetBool("isMoving", true);
@@ -153,6 +161,18 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	void SlowSpeed()
+	{
+		if (speedPenalty > 0)
+		{
+			speedPenalty -= Time.deltaTime;
+		}
+
+		if (speedPenalty < 0)
+		{
+			speedPenalty = 0;
+		}
+	}
 	private void OnEnable()
 	{
 		controls.Enable();

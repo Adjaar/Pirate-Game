@@ -9,6 +9,9 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;
     public int lives = 3;
     public float cannonDamage = 20;
+    public float penalty = 0;
+    public float crewBenefit = 1;
+    public int crewLoss = 0;
 
     public bool fullCrew;
 
@@ -28,19 +31,21 @@ public class PlayerHealth : MonoBehaviour
         p_Name = this.gameObject.name;
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Cannonball")
         {
             TakeDamage(cannonDamage);
-           
         }
+        
     }
    public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        currentHealth -= damage - penalty / crewBenefit;
         CrewLoss();
+        GrapeshotLoss(crewLoss);
+
+        penalty = 0;
 
     healthBar.SetHealth(currentHealth);
 
@@ -97,5 +102,17 @@ public class PlayerHealth : MonoBehaviour
         {
             CrewManager.crewNumberP2 -= 1;
         }
+    }
+    void GrapeshotLoss(int loss)
+    {
+        if (p_Name == "Player1")
+        {
+            CrewManager.crewNumberP1 -= loss;
+        }
+        if (p_Name == "Player2")
+        {
+            CrewManager.crewNumberP2 -= loss;
+        }
+        crewLoss = 0;
     }
 }

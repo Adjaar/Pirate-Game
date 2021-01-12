@@ -14,10 +14,10 @@ public class RamDamage : MonoBehaviour
         thisPlayerDamage = this.gameObject.GetComponentInParent<PlayerMovement>();
         crash = this.gameObject.GetComponentInChildren<Animator>();
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
 
-        if (collision.collider.name == "Vulnerable" && touched == false)
+        if (collision.GetComponent<Collider2D>().name == "Vulnerable" && touched == false)
         {            
             enemyPlayerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
             enemyPlayerHealth.TakeDamage(thisPlayerDamage.damageModifier);
@@ -28,7 +28,7 @@ public class RamDamage : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         touched = false;
     }

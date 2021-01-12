@@ -159,7 +159,8 @@ public class Cannon : MonoBehaviour
             Debug.DrawLine(broadside, endPoint, Color.white, 3f);
 
             Vector3 shootDir = (broadside - endPoint).normalized;
-            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f);
+            //Setup (Shoot direction, time it takes to fire, type of cannon ammo)
+            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f, 0);
 
 
             reload = true;
@@ -189,8 +190,8 @@ public class Cannon : MonoBehaviour
 
             Vector3 shootDir = (broadside - endPoint).normalized;
             Vector3 shootDir2 = (broadside2 - endPoint2).normalized;
-            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f);
-            rb2.GetComponent<CannonBall>().Setup(shootDir2, 0.75f);
+            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f, 0);
+            rb2.GetComponent<CannonBall>().Setup(shootDir2, 0.75f, 0);
 
             reload = true;
 
@@ -227,9 +228,9 @@ public class Cannon : MonoBehaviour
             Vector3 shootDir3 = (broadside3 - endPoint3).normalized;
 
             
-            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f);
-            rb2.GetComponent<CannonBall>().Setup(shootDir2, 0.75f);
-            rb3.GetComponent<CannonBall>().Setup(shootDir3, 0.75f);
+            rb.GetComponent<CannonBall>().Setup(shootDir, 0.75f, 0);
+            rb2.GetComponent<CannonBall>().Setup(shootDir2, 0.75f, 0);
+            rb3.GetComponent<CannonBall>().Setup(shootDir3, 0.75f, 0);
 
             reload = true;
 
@@ -246,6 +247,22 @@ public class Cannon : MonoBehaviour
                     break;
             }
         }
+    }
+
+    //this will always be called twice so that it's done on both sides.
+    //this is due to laziness
+    public void FirePowerups(Vector3 broadside, Vector3 endPoint, Vector3 broadside2, Vector3 endPoint2, float ammoRange, int ammoType)
+    {
+        rb = cannonBall.GetComponent<Rigidbody2D>(); //you need to get this on each fire, and not start because you need the rigidbody for each new prefab instantiated 
+        rb = Instantiate(rb, broadside, Quaternion.identity);
+        rb2 = cannonBall.GetComponent<Rigidbody2D>();
+        rb2 = Instantiate(rb2, broadside2, Quaternion.identity);
+
+        Vector3 shootDir = (broadside - endPoint).normalized;
+        Vector3 shootDir2 = (broadside2 - endPoint2).normalized;
+
+        rb.GetComponent<CannonBall>().Setup(shootDir, ammoRange, ammoType);
+        rb2.GetComponent<CannonBall>().Setup(shootDir2, ammoRange, ammoType);
     }
     public void ReloadGuns()
     {

@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "Powerup",
+                    "type": "Button",
+                    "id": "7be5a31c-dd19-4688-a907-b4957c8fd210",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -148,6 +156,17 @@
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "196c0871-a31d-4e30-aec9-c2e93569e45a",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Powerup",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -175,6 +194,14 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "9fbdbfb4-c354-4ad4-bdbb-3f8f19021bfd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Powerup",
+                    "type": "Button",
+                    "id": "48e4801a-0b29-48e1-94ea-dc69c477cd7b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -376,6 +403,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d650d918-aad3-40de-b2bd-ed525e66eb24",
+                    "path": "<XInputController>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Powerup",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f0b20638-2fc0-43be-a00c-e20c29d8607a",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Powerup",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -14,7 +14,7 @@ public class Powerups : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.name)
+        switch (collision.tag)
         {
             case "Player1":
                 player = GameObject.Find("HUD P1/Powerups/Power");               
@@ -25,8 +25,19 @@ public class Powerups : MonoBehaviour
             default:
                 break;
         }
-        player.GetComponent<PowerManager>().currentPower(power);
 
-        Destroy(gameObject);
+        if (player != null)
+        {
+
+            if (player.GetComponent<PowerManager>().hasPower == false)
+            {
+                Destroy(gameObject);
+            }
+            player.GetComponent<PowerManager>().CurrentPower(power);
+
+        }
+
+
+
     }
 }

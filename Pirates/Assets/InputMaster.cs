@@ -49,6 +49,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""Powerup"",
+                    ""type"": ""Button"",
+                    ""id"": ""7be5a31c-dd19-4688-a907-b4957c8fd210"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -161,6 +169,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""196c0871-a31d-4e30-aec9-c2e93569e45a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -188,6 +207,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""9fbdbfb4-c354-4ad4-bdbb-3f8f19021bfd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Powerup"",
+                    ""type"": ""Button"",
+                    ""id"": ""48e4801a-0b29-48e1-94ea-dc69c477cd7b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -391,6 +418,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d650d918-aad3-40de-b2bd-ed525e66eb24"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0b20638-2fc0-43be-a00c-e20c29d8607a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Powerup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -426,11 +475,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player_Cannons = m_Player.FindAction("Cannons", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Powerup = m_Player.FindAction("Powerup", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Movement = m_Player2.FindAction("Movement", throwIfNotFound: true);
         m_Player2_Cannons = m_Player2.FindAction("Cannons", throwIfNotFound: true);
         m_Player2_Interact = m_Player2.FindAction("Interact", throwIfNotFound: true);
+        m_Player2_Powerup = m_Player2.FindAction("Powerup", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -484,6 +535,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Cannons;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Powerup;
     public struct PlayerActions
     {
         private @InputMaster m_Wrapper;
@@ -492,6 +544,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Cannons => m_Wrapper.m_Player_Cannons;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Powerup => m_Wrapper.m_Player_Powerup;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -513,6 +566,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Powerup.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPowerup;
+                @Powerup.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPowerup;
+                @Powerup.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPowerup;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -529,6 +585,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Powerup.started += instance.OnPowerup;
+                @Powerup.performed += instance.OnPowerup;
+                @Powerup.canceled += instance.OnPowerup;
             }
         }
     }
@@ -540,6 +599,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player2_Movement;
     private readonly InputAction m_Player2_Cannons;
     private readonly InputAction m_Player2_Interact;
+    private readonly InputAction m_Player2_Powerup;
     public struct Player2Actions
     {
         private @InputMaster m_Wrapper;
@@ -547,6 +607,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player2_Movement;
         public InputAction @Cannons => m_Wrapper.m_Player2_Cannons;
         public InputAction @Interact => m_Wrapper.m_Player2_Interact;
+        public InputAction @Powerup => m_Wrapper.m_Player2_Powerup;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -565,6 +626,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnInteract;
+                @Powerup.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnPowerup;
+                @Powerup.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnPowerup;
+                @Powerup.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnPowerup;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
@@ -578,6 +642,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Powerup.started += instance.OnPowerup;
+                @Powerup.performed += instance.OnPowerup;
+                @Powerup.canceled += instance.OnPowerup;
             }
         }
     }
@@ -606,11 +673,13 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnCannons(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPowerup(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCannons(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPowerup(InputAction.CallbackContext context);
     }
 }
