@@ -94,6 +94,15 @@ public class CrewManager : MonoBehaviour
             default:
                 break;
         }
+
+        if (crewNumberP1 <= 0)
+        {
+            crewNumberP1 = 0;
+        }
+        if (crewNumberP2 <= 0)
+        {
+            crewNumberP2 = 0;
+        }
     }
 
     void CrewBenefits()

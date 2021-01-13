@@ -11,6 +11,10 @@ TagManager:
   - Ammunition
   - Bow
   - Vulnerable
+  - Shield
+  - Chainshot
+  - Grapeshot
+  - Speed
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Ground
   - P1 CAM
   - P2 CAM
   - 

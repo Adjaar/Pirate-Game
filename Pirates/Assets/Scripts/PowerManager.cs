@@ -15,14 +15,19 @@ public class PowerManager : MonoBehaviour
     public InputMaster controls;
 
     //chainshot and grapeshot do less than regular cannons and also harm things other than health like speed and crew numbers
+    //these get the info from the opposite player
    public PlayerHealth Damage;
    public PlayerMovement speedDamage;
-   public CrewManager crewDamage;
+    //this is for the active player
+    private PlayerHealth shields;
+    private PlayerMovement speedBoost;
+   
 
     //determines what method to use
     private int usepower;
     //ammo has different ranges. Grapeshot is short, Chainshot is medium, regular is long
     private float rangeOfAmmo;
+    private float timer;
 
     private void Awake()
     {
@@ -31,6 +36,8 @@ public class PowerManager : MonoBehaviour
     private void Start()
     {
         thisSprite = this.gameObject.GetComponent<Image>();
+        shields = player.GetComponent<PlayerHealth>();
+        speedBoost = player.GetComponent<PlayerMovement>();
 
         switch (player.name)
         {
@@ -44,19 +51,33 @@ public class PowerManager : MonoBehaviour
                 break;
         }
 
-
     }
+
     private void Update()
     {
+        //remove the shield and speed effects after a certain period of time
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+
+        if (timer < 0)
+        {
+            timer = 0;
+            player.transform.GetChild(15).gameObject.SetActive(false);
+            speedBoost.speedPowerup = 0;
+            hasPower = false;
+            RemovePower();
+        }
     }
+
     public void CurrentPower(string power)
     {
-
         if (hasPower == false)
         {
             switch (power)
             {
-                case "ChainshotBox":
+                case "Chainshot":
                     thisSprite.sprite = chainshotBox;
                     usepower = 1;
                     break;
@@ -64,11 +85,11 @@ public class PowerManager : MonoBehaviour
                     thisSprite.sprite = grapeshot;
                     usepower = 2;
                     break;
-                case "Shield Powerup":
+                case "Shield":
                     thisSprite.sprite = shield;
                     usepower = 3;
                     break;
-                case "Speed Powerup":
+                case "Speed":
                     thisSprite.sprite = speed;
                     usepower = 4;
                     break;
@@ -135,11 +156,17 @@ public class PowerManager : MonoBehaviour
     }
     void Shield()
     {
+        //timer for the shields
+        timer = 10;
 
+        player.transform.GetChild(15).gameObject.SetActive(true);
+        shields.forceField = true;
     }
     void Speed()
     {
+        timer = 5;
 
+        speedBoost.speedPowerup = 12;
     }
     private void OnEnable()
     {

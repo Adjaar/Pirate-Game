@@ -11,17 +11,22 @@ public class PlayerHealth : MonoBehaviour
     public float cannonDamage = 20;
     public float penalty = 0;
     public float crewBenefit = 1;
+
     public int crewLoss = 0;
+    int probability;
 
     public bool fullCrew;
+    public bool forceField;
 
     public GameOver endGame;
     public Respawn spawner;
     public HealthBar healthBar;
-
     public Animator health;
 
+    public GameObject crewPrefab;
+
     private string p_Name;
+
 
     void Start()
     {
@@ -33,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Cannonball")
+        if (collision.gameObject.tag == "Cannonball" && forceField == false)
         {
             TakeDamage(cannonDamage);
         }
@@ -92,8 +97,7 @@ public class PlayerHealth : MonoBehaviour
 
     void CrewLoss()
     {
-        int probability;
-        probability = Random.Range(1, 11);
+        probability = Random.Range(1, 8);
         if (p_Name == "Player1" && probability == 1)
         {
             CrewManager.crewNumberP1 -= 1;
@@ -101,6 +105,15 @@ public class PlayerHealth : MonoBehaviour
         if (p_Name == "Player2" && probability == 1)
         {
             CrewManager.crewNumberP2 -= 1;
+        }
+
+        if (probability == 1)
+        {
+            Vector2 pos;
+            pos = this.gameObject.transform.position + new Vector3(Random.Range(-1, 1), -2);
+            int crewDrop = Random.Range(1, 3);
+           // if (crewDrop == 1)
+                Instantiate(crewPrefab, pos, Quaternion.identity);
         }
     }
     void GrapeshotLoss(int loss)
@@ -114,5 +127,15 @@ public class PlayerHealth : MonoBehaviour
             CrewManager.crewNumberP2 -= loss;
         }
         crewLoss = 0;
+
+        if (crewLoss != 0)
+        {
+            Vector2 pos;
+            pos = this.gameObject.transform.position + new Vector3(Random.Range(-1, 1), -2);//(-1, -1);
+            int crewDrop = Random.Range(1, 3);
+            if (crewDrop == 1)
+                Instantiate(crewPrefab, pos, Quaternion.identity);
+
+        }
     }
 }

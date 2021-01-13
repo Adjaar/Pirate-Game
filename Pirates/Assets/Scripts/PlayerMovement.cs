@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
 	[SerializeField]
 	public float steeringPower = 1f;
-	public float speedModifier, speedPenalty;
+	//modifier depends on how many crew, penalty is if hit by chainshot, and powerup is for picking up a speed boost
+	public float speedModifier, speedPenalty, speedPowerup;
 	float steeringAmount, speed, direction;
 
 	public static string interaction, secondInteraction; //second interaction checks if player 2 interacts with something without overwriting player1's interaction
@@ -75,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 	void ApplyMovement()
 	{
+
 		steeringAmount = moveInput.x;
 		speed = moveInput.y * accelerationPower - speedPenalty;
 		direction = Mathf.Sign(Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.up))); //all the math is stolen, I couldn't steer it properly myself
@@ -205,15 +207,15 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (windDirection.currentWind == "N") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 			{
-				accelerationPower = 15f + speedModifier;
+				accelerationPower = 15f + speedModifier + speedPowerup;
 			}
 			else if (windDirection.currentWind == "S") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 			{
-				accelerationPower = 5f + speedModifier;
+				accelerationPower = 5f + speedModifier + speedPowerup;
 			}
 			else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 			{
-				accelerationPower = 10f + speedModifier;
+				accelerationPower = 10f + speedModifier + speedPowerup;
 			}
 
 		}
@@ -221,45 +223,45 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (windDirection.currentWind == "S") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 			{
-				accelerationPower = 15f + speedModifier;
+				accelerationPower = 15f + speedModifier + speedPowerup;
 			}
 			else if (windDirection.currentWind == "N") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 			{
-				accelerationPower = 5f + speedModifier;
+				accelerationPower = 5f + speedModifier + speedPowerup;
 			}
 			else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 			{
-				accelerationPower = 10f + speedModifier;
+				accelerationPower = 10f + speedModifier + speedPowerup;
 			}
 		}
 		else if (hit.collider.name == "East" + playerNumber)
 		{
 			if (windDirection.currentWind == "E") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 			{
-				accelerationPower = 15f + speedModifier;
+				accelerationPower = 15f + speedModifier + speedPowerup;
 			}
 			else if (windDirection.currentWind == "W") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 			{
-				accelerationPower = 5f + speedModifier;
+				accelerationPower = 5f + speedModifier + speedPowerup;
 			}
 			else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 			{
-				accelerationPower = 10f + speedModifier;
+				accelerationPower = 10f + speedModifier + speedPowerup;
 			}
 		}
 		else if (hit.collider.name == "West" + playerNumber)
 		{
 			if (windDirection.currentWind == "W") //WHEN MOVING WITH WIND, SPEED BECOMES 15F
 			{
-				accelerationPower = 15f + speedModifier;
+				accelerationPower = 15f + speedModifier + speedPowerup;
 			}
 			else if (windDirection.currentWind == "E") //WHEN MOVING AGAINST WIND, SPEED BECOMES 5F
 			{
-				accelerationPower = 5f + speedModifier;
+				accelerationPower = 5f + speedModifier + speedPowerup;
 			}
 			else //WHEN NEITHER WITH OR AGAINST WIND, SPEED IS 10F
 			{
-				accelerationPower = 10f + speedModifier;
+				accelerationPower = 10f + speedModifier + speedPowerup;
 			}
 
 		}

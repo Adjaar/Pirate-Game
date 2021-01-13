@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Crew : MonoBehaviour
 {
+    public Sprite[] pickSprite;
+    private SpriteRenderer thisSprite;
+
+    private void Start()
+    {
+        pickSprite = Resources.LoadAll<Sprite>("Crew Art");
+        int crew = Random.Range(0, 6);
+        thisSprite = this.gameObject.GetComponent<SpriteRenderer>();
+        thisSprite.sprite = pickSprite[crew];
+
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

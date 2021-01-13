@@ -9,7 +9,8 @@ public class Powerups : MonoBehaviour
 
     private void Start()
     {
-        power = this.gameObject.name;
+        power = this.gameObject.tag;
+        StartCoroutine(Despawn());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,10 +35,13 @@ public class Powerups : MonoBehaviour
                 Destroy(gameObject);
             }
             player.GetComponent<PowerManager>().CurrentPower(power);
-
         }
 
+    }
 
-
+    IEnumerator Despawn()
+    {
+        yield return new WaitForSeconds(60);
+        Destroy(gameObject);
     }
 }
