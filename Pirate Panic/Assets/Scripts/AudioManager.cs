@@ -34,11 +34,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Play("Theme");
-    }
-
     public void Play(string name)
     {
         //searches the sound array for the sound with the same name as the string name when Play is called

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ControlsMenu : MonoBehaviour
 {
-   public GameObject menu, keyboard, controller;
+   public GameObject menu, keyboard, controller, credits;
 
     //Controls Menu
     public void Controls()
@@ -40,6 +40,14 @@ public class ControlsMenu : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("Click");
         menu.SetActive(true);
         this.gameObject.SetActive(false);
+    }
+
+    //Credits Menu
+    public void Credits()
+    {
+        FindObjectOfType<AudioManager>().Play("Click");
+        menu.SetActive(false);
+        credits.SetActive(true);
     }
 
     //Displays keyboard controls
