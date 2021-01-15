@@ -11,6 +11,7 @@ public class GameOver : MonoBehaviour
 
   public void EndGame(string playerName)
     {
+        Time.timeScale = 0;
         this.gameObject.SetActive(true);
         winText.text = playerName + " has been defeated!";
     }

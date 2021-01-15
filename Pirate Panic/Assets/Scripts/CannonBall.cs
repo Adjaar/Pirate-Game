@@ -45,7 +45,6 @@ public class CannonBall : MonoBehaviour
 
             float moveSpeed = 15f;
             transform.position += -shootDir * moveSpeed * Time.deltaTime;
-           // Destroy(gameObject, 1f);
     
     }
     private void OnCollisionEnter2D(Collision2D collision)

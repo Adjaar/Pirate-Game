@@ -218,6 +218,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""1fb05645-9b14-4ab8-ad45-434af04e60e3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -440,6 +448,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Powerup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b39930cb-0049-4d4f-86f8-82897a35b5e8"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -482,6 +501,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_Player2_Cannons = m_Player2.FindAction("Cannons", throwIfNotFound: true);
         m_Player2_Interact = m_Player2.FindAction("Interact", throwIfNotFound: true);
         m_Player2_Powerup = m_Player2.FindAction("Powerup", throwIfNotFound: true);
+        m_Player2_Escape = m_Player2.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -600,6 +620,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_Player2_Cannons;
     private readonly InputAction m_Player2_Interact;
     private readonly InputAction m_Player2_Powerup;
+    private readonly InputAction m_Player2_Escape;
     public struct Player2Actions
     {
         private @InputMaster m_Wrapper;
@@ -608,6 +629,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Cannons => m_Wrapper.m_Player2_Cannons;
         public InputAction @Interact => m_Wrapper.m_Player2_Interact;
         public InputAction @Powerup => m_Wrapper.m_Player2_Powerup;
+        public InputAction @Escape => m_Wrapper.m_Player2_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -629,6 +651,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Powerup.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnPowerup;
                 @Powerup.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnPowerup;
                 @Powerup.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnPowerup;
+                @Escape.started -= m_Wrapper.m_Player2ActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_Player2ActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_Player2ActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_Player2ActionsCallbackInterface = instance;
             if (instance != null)
@@ -645,6 +670,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Powerup.started += instance.OnPowerup;
                 @Powerup.performed += instance.OnPowerup;
                 @Powerup.canceled += instance.OnPowerup;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -681,5 +709,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnCannons(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnPowerup(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

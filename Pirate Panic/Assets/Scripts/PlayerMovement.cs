@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
 		tracers = this.gameObject.GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		windDirection = compass.GetComponent<Wind>();
-		controls.Player.Escape.performed += ctx => Quit();
 		controls.Player.Interact.performed += ctx => Interact(interaction, secondInteraction);
 		controls.Player2.Interact.performed += ctx => Interact(interaction, secondInteraction);
 		
@@ -185,10 +184,6 @@ public class PlayerMovement : MonoBehaviour
 		controls.Disable();
 	}
 
-	private void Quit()
-	{
-		Application.Quit();
-	}
 
 	//stop playing moving animation while stuck
 	private void OnCollisionEnter2D(Collision2D collision)

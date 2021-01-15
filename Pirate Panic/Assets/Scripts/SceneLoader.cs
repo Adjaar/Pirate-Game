@@ -18,6 +18,13 @@ public class SceneLoader : MonoBehaviour
 
     public void TwoPlayer()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Two Players", LoadSceneMode.Single);
     }
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+    }
+
 }
