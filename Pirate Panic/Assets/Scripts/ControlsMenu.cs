@@ -9,6 +9,7 @@ public class ControlsMenu : MonoBehaviour
     //Controls Menu
     public void Controls()
     {
+        FindObjectOfType<AudioManager>().Play("Click");
         menu.SetActive(false);
         this.gameObject.SetActive(true);
     }
@@ -16,6 +17,7 @@ public class ControlsMenu : MonoBehaviour
     //Forward Button
     public void Forward()
     {
+        FindObjectOfType<AudioManager>().Play("Click");
         if (keyboard == isActiveAndEnabled)
         {
             Controlscon();
@@ -25,6 +27,7 @@ public class ControlsMenu : MonoBehaviour
     //Back Button
     public void Back()
     {
+        FindObjectOfType<AudioManager>().Play("Click");
         if (controller == isActiveAndEnabled)
         {
             Controlskey();
@@ -34,6 +37,7 @@ public class ControlsMenu : MonoBehaviour
     //Return to Main Menu Button
     public void MainMenu()
     {
+        FindObjectOfType<AudioManager>().Play("Click");
         menu.SetActive(true);
         this.gameObject.SetActive(false);
     }

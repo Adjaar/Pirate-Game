@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 //This script handles more than just movement. I wish it was not named Player Movement but I'm too afraid to change it because of everything that references it
 public class PlayerMovement : MonoBehaviour
 {
+	bool inWind;
+
 	public GameObject compass; //Wind game object to be accessed by windDirection variable
 	Rigidbody2D rb;
 	private Wind windDirection;
@@ -76,7 +78,8 @@ public class PlayerMovement : MonoBehaviour
 	void ApplyMovement()
 	{
 
-		steeringAmount = moveInput.x;
+
+	steeringAmount = moveInput.x;
 		speed = moveInput.y * accelerationPower - speedPenalty;
 		direction = Mathf.Sign(Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.up))); //all the math is stolen, I couldn't steer it properly myself
 		rb.rotation += steeringAmount * steeringPower * rb.velocity.magnitude * direction;
@@ -94,11 +97,20 @@ public class PlayerMovement : MonoBehaviour
 		//when going in the wind you get tracers showing speed boost
 		if (accelerationPower >= 20f && moveInput.y > 0)
 		{
+		
 			tracers.SetBool("isMoving", true);
+			//prevents wind audio from starting over and over since this is called in an update method
+			if (inWind == false)
+			{
+				FindObjectOfType<AudioManager>().Play("Wind");
+				inWind = true;
+			}
+
 		}
 		else
 		{
 			tracers.SetBool("isMoving", false);
+			inWind = false;
 		}
 
 	}
@@ -189,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		tracers.SetBool("Stuck", true);
+		FindObjectOfType<AudioManager>().Play("Stuck");
 	}
 	private void OnCollisionExit2D(Collision2D collision)
 	{

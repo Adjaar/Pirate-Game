@@ -40,11 +40,13 @@ public class Port : MonoBehaviour
     {
         if (pressed1 == true)
         {
+            FindObjectOfType<AudioManager>().Play("Interact");
             p1.SetTrigger("pressed");
             pressed1 = false;
         }
         if (pressed2 == true)
         {
+            FindObjectOfType<AudioManager>().Play("Interact");
             p2.SetTrigger("pressed");
             pressed2 = false;
         }

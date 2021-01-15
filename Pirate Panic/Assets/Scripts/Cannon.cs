@@ -266,7 +266,7 @@ public class Cannon : MonoBehaviour
     }
     public void ReloadGuns()
     {
-            reload = false;
+        reload = false;
             timer = cooldown;
        
     }

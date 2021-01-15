@@ -27,6 +27,7 @@ public class Powerups : MonoBehaviour
                 break;
         }
 
+        FindObjectOfType<AudioManager>().Play("Powerup");
         if (player != null)
         {
 

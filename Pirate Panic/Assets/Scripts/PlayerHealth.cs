@@ -40,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.gameObject.tag == "Cannonball" && forceField == false)
         {
+            FindObjectOfType<AudioManager>().Play("Ship hit");
             TakeDamage(cannonDamage);
         }
         

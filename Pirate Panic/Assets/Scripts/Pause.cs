@@ -21,6 +21,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void PauseMenu()
     {
+        FindObjectOfType<AudioManager>().Play("Click");
         pause.SetActive(true);
         Time.timeScale = 0;
 
@@ -28,6 +29,7 @@ public class Pause : MonoBehaviour
 
    public void Resume()
     {
+        FindObjectOfType<AudioManager>().Play("Click");
         pause.SetActive(false);
         Time.timeScale = 1;
     }

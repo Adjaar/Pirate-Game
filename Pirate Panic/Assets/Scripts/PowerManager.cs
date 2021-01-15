@@ -159,14 +159,14 @@ public class PowerManager : MonoBehaviour
     {
         //timer for the shields
         timer = 10;
-
+        FindObjectOfType<AudioManager>().Play("Shield");
         player.transform.GetChild(15).gameObject.SetActive(true);
         shields.forceField = true;
     }
     void Speed()
     {
         timer = 5;
-
+        FindObjectOfType<AudioManager>().Play("Speed");
         speedBoost.speedPowerup = 12;
     }
     private void OnEnable()

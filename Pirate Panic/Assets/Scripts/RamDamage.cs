@@ -23,6 +23,7 @@ public class RamDamage : MonoBehaviour
             enemyPlayerHealth.TakeDamage(thisPlayerDamage.damageModifier);
             thisPlayerDamage.damageModifier = 0;
 
+            FindObjectOfType<AudioManager>().Play("Ram");
             crash.SetTrigger("Crashed");
             touched = true;
         }

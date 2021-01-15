@@ -18,6 +18,7 @@ public class CannonBall : MonoBehaviour
         if (exploded == false)
         {
             GetComponent<Animator>().Play("WaterExplosion");
+            FindObjectOfType<AudioManager>().Play("Water splash");
         }
 
         shootDir = Vector3.zero;
@@ -52,6 +53,7 @@ public class CannonBall : MonoBehaviour
         explode.SetTrigger("Collision");
         exploded = true;
         shootDir = Vector3.zero; //stops cannonball from moving
+        FindObjectOfType<AudioManager>().Play("Explode");
         Destroy(gameObject, 0.25f);
     }
 }

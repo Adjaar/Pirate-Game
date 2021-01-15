@@ -19,6 +19,8 @@ public class Crew : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        FindObjectOfType<AudioManager>().Play("Crew");
+
         if (collision.gameObject.tag == "Player1" && CrewManager.crewNumberP1 != 7)
         {
             CrewManager.crewNumberP1 += 1;
