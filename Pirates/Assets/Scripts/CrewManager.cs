@@ -7,15 +7,12 @@ using UnityEngine.UI;
 /* CREW BENEFITS
  * 0/10 Sail around and fire 1 cannon ball with slow reload
  * 1/10 Normal reload
- * 2/10 Speed increase
- * 3/10 Increased vision (if applicable)
- * 4/10 Two cannonballs
- * 5/10 More health from pickups
- * 6/10 Can board ships
- * 7/10 Speed increase
- * 8/10 Three cannonballs 
- * 9/10 Higher defence
- * 10/10 Ship slowly repairs
+ * 2/7 Speed increase
+ * 3/7 Two cannonballs
+ * 4/7 Speed increase
+ * 5/7 Three cannonballs 
+ * 6/7 Higher defence
+ * 7/7 Ship slowly repairs
  */
 
 public class CrewManager : MonoBehaviour
@@ -24,7 +21,7 @@ public class CrewManager : MonoBehaviour
     public static int crewNumberP1;
     public static int crewNumberP2;
     public int gunNumber = 1;
-    public Sprite zero, one, two, three, four, five, six, seven, eight, nine, ten;
+    public Sprite zero, one, two, three, four, five, six, seven;
     public Image thisSprite;
 
     public Cannon coolDown;
@@ -33,8 +30,8 @@ public class CrewManager : MonoBehaviour
 
     private void Start()
     {
-        crewNumberP1 = 3;
-        crewNumberP2 = 3;
+        crewNumberP1 = 2;
+        crewNumberP2 = 2;
     }
 
     void Update()
@@ -82,15 +79,6 @@ public class CrewManager : MonoBehaviour
             case 7:
                 thisSprite.sprite = seven;
                 break;
-            case 8:
-                thisSprite.sprite = eight;
-                break;
-            case 9:
-                thisSprite.sprite = nine;
-                break;
-            case 10:
-                thisSprite.sprite = ten;
-                break;
             default:
                 break;
         }
@@ -109,7 +97,7 @@ public class CrewManager : MonoBehaviour
     {
         switch (crewNumber)
         {
-
+           
             case 0:
                 coolDown.cooldown = 2; //no crew resets the cooldown to a default number
                 speed.speedModifier = 0f;
@@ -131,48 +119,28 @@ public class CrewManager : MonoBehaviour
                 modifyHealthScript.cannonDamage = 20;
                 break;
             case 3:
-                //currently nothing
-                coolDown.cooldown = 1;
-                speed.speedModifier = 5f;
-                gunNumber = 1;
-                modifyHealthScript.fullCrew = false;
-                modifyHealthScript.cannonDamage = 20;
-                break;
-            case 4:
                 speed.speedModifier = 5f;
                 gunNumber = 2; //allows second cannon shot out of one action
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
                 break;
+            case 4:
+                gunNumber = 2;
+                speed.speedModifier = 8f; //fastest speed
+                modifyHealthScript.fullCrew = false;
+                modifyHealthScript.cannonDamage = 20;
+                break;
             case 5:
-                speed.speedModifier = 5f;
-                gunNumber = 2;
-                modifyHealthScript.fullCrew = false;
-                modifyHealthScript.cannonDamage = 20;
-                break;
-            case 6:
-                speed.speedModifier = 5f;
-                gunNumber = 2;
-                modifyHealthScript.fullCrew = false;
-                modifyHealthScript.cannonDamage = 20;
-                break;
-            case 7:
-                gunNumber = 2;
-                speed.speedModifier = 8f;
-                modifyHealthScript.fullCrew = false;
-                modifyHealthScript.cannonDamage = 20;
-                break;
-            case 8:
                 gunNumber = 3; //allows third cannon shot out of one action
                 modifyHealthScript.fullCrew = false;
                 modifyHealthScript.cannonDamage = 20;
                 break;
-            case 9:
-                modifyHealthScript.cannonDamage = 10;
+            case 6:
+                modifyHealthScript.cannonDamage = 10; //cannons do less damage
                 modifyHealthScript.fullCrew = false;
                 break;
-            case 10:
-                modifyHealthScript.fullCrew = true;
+            case 7:
+                modifyHealthScript.fullCrew = true; //ship repairs over time
                 break;
             default:
                 break;

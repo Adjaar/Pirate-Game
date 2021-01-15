@@ -18,6 +18,7 @@ public class SpawnObject : MonoBehaviour
             int newPower = Random.Range(0, 4);
             yield return new WaitForSeconds(30);
             SpawnPower(newPower);
+       
             SpawnAmmo();
             SpawnAmmo();
             SpawnAmmo();

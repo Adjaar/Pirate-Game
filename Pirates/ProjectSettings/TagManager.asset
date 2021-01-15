@@ -15,6 +15,7 @@ TagManager:
   - Chainshot
   - Grapeshot
   - Speed
+  - Merchant
   layers:
   - Default
   - TransparentFX

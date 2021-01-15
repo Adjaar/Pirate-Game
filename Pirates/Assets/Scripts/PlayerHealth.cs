@@ -97,7 +97,7 @@ public class PlayerHealth : MonoBehaviour
 
     void CrewLoss()
     {
-        probability = Random.Range(1, 8);
+        probability = Random.Range(1, 11);
         if (p_Name == "Player1" && probability == 1)
         {
             CrewManager.crewNumberP1 -= 1;
@@ -112,7 +112,7 @@ public class PlayerHealth : MonoBehaviour
             Vector2 pos;
             pos = this.gameObject.transform.position + new Vector3(Random.Range(-1, 1), -2);
             int crewDrop = Random.Range(1, 3);
-           // if (crewDrop == 1)
+            if (crewDrop == 1)
                 Instantiate(crewPrefab, pos, Quaternion.identity);
         }
     }

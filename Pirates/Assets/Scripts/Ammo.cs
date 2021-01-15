@@ -16,5 +16,9 @@ public class Ammo : MonoBehaviour
             AmmoManager.ammoNumberP2 += 1;
             Destroy(gameObject);
         }
+        else if (collision.gameObject.tag == "Merchant")
+        {
+            Destroy(gameObject);
+        }
     }
 }

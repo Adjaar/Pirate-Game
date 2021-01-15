@@ -66,6 +66,7 @@ public class PowerManager : MonoBehaviour
             timer = 0;
             player.transform.GetChild(15).gameObject.SetActive(false);
             speedBoost.speedPowerup = 0;
+            shields.forceField = false;
             hasPower = false;
             RemovePower();
         }
